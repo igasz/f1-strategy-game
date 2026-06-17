@@ -111,6 +111,7 @@ void StartSession(Game* g) {
         g->cars[i].pitRequested = false;
         g->cars[i].finishTime = 0.0f;
         g->cars[i].spinTimer = 0;
+        g->cars[i].tyreWear = 100.0f;
         
         g->standings[i] = i; // reset tabeli
     }
@@ -306,10 +307,6 @@ void UpdateRace(Game* g) {
             if (needsToPit && g->cars[i].pitTimer == 0 && !g->cars[i].finished) {
                 g->cars[i].pitRequested = true;
             }
-
-            if (needsToPit && g->cars[i].pitTimer == 0 && !g->cars[i].finished) {
-                g->cars[i].pitRequested = true;
-            }
         }
 
         // opony
@@ -356,6 +353,10 @@ void UpdateRace(Game* g) {
 
             if (GetRandomValue(0, spinChance) == 0 && g->cars[i].spinTimer == 0) {
                 g->cars[i].spinTimer = GetRandomValue(40, 120); // Stoi w miejscu od 0.5s do 2s (kara)
+                g->cars[i].tyreWear -= 8.0f; 
+                    if (g->cars[i].tyreWear < 0.0f) {
+                        g->cars[i].tyreWear = 0.0f; // Zabezpieczenie, żeby nie zeszło na minus
+                    }
             }
         }
 

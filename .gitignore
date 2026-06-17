@@ -1,0 +1,7 @@
+# Ignoruj pliki wykonywalne i kompilacji
+*.exe
+*.o
+*.obj
+
+# Ignoruj ewentualne ukryte foldery systemowe/edytora
+.vscode/
